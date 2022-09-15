@@ -16,7 +16,8 @@ class phosc_dataset(Dataset):
         # it should be pandas df with ["Image", "Word", "phos", "phoc", "phosc"] columns
         # containing file name, word label, phoc, phoc, phosc features vector in each row
         # phosc features vector can be created combining generate_phos_vector, generate_phoc_vector
-        # Note: creating phoc, phoc columns in the df is optional. But can be good for debugging.
+        # Note: How to use phoc, phoc or phosc of the df in a batch is up to you.
+        # in the __getitem__ below the phosc vector is used in the batches.
         pass
 
     def __getitem__(self, index):
