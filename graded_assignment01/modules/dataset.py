@@ -12,7 +12,13 @@ import numpy as np
 
 class phosc_dataset(Dataset):
     def __init__(self, csvfile, root_dir, transform=None, calc_phosc=True):
-        
+        # Fill in your code here. You will populate self.df_all
+        # it should be pandas df with ["Image", "Word", "phos", "phoc", "phosc"] columns
+        # containing file name, word label, phoc, phoc, phosc features vector in each row
+        # phosc features vector can be created combining generate_phos_vector, generate_phoc_vector
+        # Note: creating phoc, phoc columns in the df is optional. But can be good for debugging.
+        pass
+
     def __getitem__(self, index):
         img_path = os.path.join(self.root_dir, self.df_all.iloc[index, 0])
         image = io.imread(img_path)
