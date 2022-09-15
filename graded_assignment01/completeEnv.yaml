@@ -32,6 +32,7 @@ dependencies:
     - idna
     - imageio
     - networkx
+    - timm
     - pip:
         - gym
         - duckietown-world-daffy
@@ -39,4 +40,5 @@ dependencies:
         - typing-extensions
         - carnivalmirror
         - pyglet
+        - torch-summary
         
