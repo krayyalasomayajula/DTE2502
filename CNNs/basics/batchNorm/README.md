@@ -1,3 +1,3 @@
 # CNN basics:
-Effects of batch norm on CNN training.
+Effects of batch norm and dropout on CNN training.
 
