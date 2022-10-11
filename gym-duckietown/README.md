@@ -1,4 +1,24 @@
-# Gym-Duckietown
+# DTE2502: Neural Networks
+Here is a gym-duckie town git-repo clone slightly modified to be compatible with latest Python and Numpy. This environment should be good enough for all the assignments in the course
+Run the following command to setup the gym-duckietown:
+```
+conda env create -f environment.yml
+```
+Check that the environment is available by list all the available environments:
+```
+conda env list
+```
+
+Export all the dependencies using the following command in the gym-duckietown directories:
+```
+export PYTHONPATH="${PYTHONPATH}:${PYTHONPATH}:`pwd`/src"
+```
+Run the following command to check everything is working in your environemnt:
+```
+python manual_control.py --env-name Duckietown-udem1-v0
+```
+
+## Gym-Duckietown
 
 [![Build Status](https://circleci.com/gh/duckietown/gym-duckietown/tree/master.svg?style=shield)](https://circleci.com/gh/duckietown/gym-duckietown/tree/master) [![Docker Hub](https://img.shields.io/docker/pulls/duckietown/gym-duckietown.svg)](https://hub.docker.com/r/duckietown/gym-duckietown)
 
