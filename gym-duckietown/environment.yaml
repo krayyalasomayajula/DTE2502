@@ -1,0 +1,43 @@
+name: gym-duckietown
+channels:
+    - conda-forge
+    - pytorch
+    - defaults
+dependencies:
+    - python=3.9
+    - pip
+    - numpy
+    - scipy
+    - packaging
+    - pandas
+    - Pillow
+    - pyparsing
+    - python-dateutil
+    - pytz
+    - PyWavelets
+    - requests
+    - six
+    - tifffile
+    - typing_extensions
+    - urllib3
+    - pyyaml
+    - pytorch
+    - torchvision
+    - pyzmq
+    - opencv
+    - scikit-image
+    - scikit-learn
+    - charset-normalizer
+    - idna
+    - imageio
+    - networkx
+    - timm
+    - pip:
+        - gym
+        - duckietown-world-daffy
+        - pipdeptree
+        - typing-extensions
+        - carnivalmirror
+        - pyglet
+        - torch-summary
+
