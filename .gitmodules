@@ -1,3 +1,0 @@
-[submodule "gym-duckietown"]
-	path = gym-duckietown
-	url = https://github.com/duckietown/gym-duckietown
