@@ -1,16 +1,16 @@
 # DTE2502: Neural Networks
-Here is a gym-duckie town git-repo clone slightly modified to be compatible with latest Python and Numpy. This environment should be good enough for all the assignments in the course
-Run the following command to setup the gym-duckietown:
+Here is a gym-duckietown git-repo clone slightly modified to be compatible with latest Python and Numpy. This environment should be good enough for all the assignments in the course. Run the following command to setup the gym-duckietown environment:
 ```
 conda env create -f environment.yml
 ```
-Check that the environment is available by list all the available environments:
+Check that gym-duckietown environment is now available by listing all the available environments running the following command:
 ```
 conda env list
 ```
 
-Export all the dependencies using the following command in the gym-duckietown directories:
+Export all the code dependencies using the following command with the course repo:
 ```
+cd gym-duckietown
 export PYTHONPATH="${PYTHONPATH}:${PYTHONPATH}:`pwd`/src"
 ```
 Run the following command to check everything is working in your environemnt:
