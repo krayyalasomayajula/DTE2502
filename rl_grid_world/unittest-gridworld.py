@@ -1,7 +1,7 @@
 import numpy as np
 import unittest
 
-from GridWorld import GridWorld
+from MDP.GridWorld import GridWorld
 
 
 class GridWorldTest(unittest.TestCase):
@@ -28,7 +28,7 @@ class GridWorldTest(unittest.TestCase):
         print('UnitTest for size of transition model passed successfully!')
 
     def test_transition_model(self):
-        problem = GridWorld('data/world02.csv', reward={0: -0.04, 1: 1.0, 2: -1.0, 3: np.nan}, random_rate=0.2)
+        problem = GridWorld('data/world01.csv', reward={0: -0.04, 1: 1.0, 2: -1.0, 3: np.nan}, random_rate=0.2)
         transition_model = problem.transition_model
         self.assertTrue(np.all(np.sum(transition_model, axis=2) == 1.0),
                         msg=f'Sum of transition model for a certain s,a should be 1.0')
