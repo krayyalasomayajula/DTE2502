@@ -2,11 +2,13 @@ import numpy as np
 import os
 import itertools
 from copy import deepcopy
+import sys
+sys.path.append('..')
 
 from MDP.GridWorld import GridWorld
 from MDP.PolicyIteration import PolicyIteration
 
-problem = GridWorld('data/world00.csv', reward={0: -0.04, 1: 1.0, 2: -1.0, 3: np.NaN}, random_rate=0.2)
+problem = GridWorld('../data/world00.csv', reward={0: -0.04, 1: 1.0, 2: -1.0, 3: np.NaN}, random_rate=0.2)
 policy = [1, 1, 3, 1, 0, 0, 2, 0, 1, 2, 1, 0]
 
 PI_PLOTS_DIR = 'plots/PolicyIteration'

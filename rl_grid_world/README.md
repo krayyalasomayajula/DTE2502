@@ -7,12 +7,16 @@ The code changes are made to make the analysis more clear and pedagogical.
 
 The following algorithms are implemented in Python:
 - Markov Decission Precoss (MDP) and Reinforcement Learning (RL)
-	- Basics of MDP (grid world)
-	- Policy Iteration
-	- Value Iteration
-	- Model-based Adaptive Dynamic Programming (ADP)
-	- Model-free Monte Carlo (MC)
-	- Q-Learning
+	- World is known (run tests from `world_known` directory)
+		- Basics of MDP (grid world)
+		- Policy Iteration
+		- Value Iteration
+	- World is unknown: Learning through a model approximation of it (run tests from `unworld_model_based` directory)
+		- Model-based Adaptive Dynamic Programming (ADP)
+	- World is unknown: Learning through a model free approach (run tests from `unworld_model_free` directory)
+		- Model-free Monte Carlo (MC)
+	- World is unknown: Temporal difference learning (run tests from `unworld_tdl` directory)
+		- Q-Learning
 
 ### GridWorld.py
 

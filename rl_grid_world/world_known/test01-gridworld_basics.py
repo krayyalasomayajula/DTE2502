@@ -1,5 +1,8 @@
 import numpy as np
 import os
+import sys
+sys.path.append('..')
+
 from MDP.GridWorld import GridWorld
 
 #Grid block code
@@ -15,7 +18,7 @@ if not os.path.exists(GRIDWORLD_PLOTS_DIR):
 
 if SELECT_GRID == '3x4':
     REWARD_VALUES = {0: -0.04, 1: 1.0, 2: -1.0, 3: np.NaN}
-    problem = GridWorld('data/world00.csv', reward=REWARD_VALUES, random_rate=0.2)
+    problem = GridWorld('../data/world00.csv', reward=REWARD_VALUES, random_rate=0.2)
     problem.plot_map(fig_size=(10, 8), 
     SHOW_STATES=True, 
     SHOW_REWARDS=True,
@@ -23,7 +26,7 @@ if SELECT_GRID == '3x4':
     fil_name=os.path.join(GRIDWORLD_PLOTS_DIR, 'rewards.png'))
 else:
     REWARD_VALUES = {0: -0.04, 1: 10.0, 2: -10.0, 3: np.NaN}
-    problem = GridWorld('data/world01.csv', reward=REWARD_VALUES, random_rate=0.2)
+    problem = GridWorld('../data/world01.csv', reward=REWARD_VALUES, random_rate=0.2)
     problem.plot_map(fig_size=(10, 8))
 
 problem.plot_transition_probabilities(fig_size=(20, 10),
