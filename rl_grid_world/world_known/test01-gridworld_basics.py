@@ -21,7 +21,6 @@ if SELECT_GRID == '3x4':
     SHOW_REWARDS=True,
     SAVE_PLOTS=True,
     fil_name=os.path.join(GRIDWORLD_PLOTS_DIR, 'rewards.png'))
-
 else:
     REWARD_VALUES = {0: -0.04, 1: 10.0, 2: -10.0, 3: np.NaN}
     problem = GridWorld('data/world01.csv', reward=REWARD_VALUES, random_rate=0.2)
