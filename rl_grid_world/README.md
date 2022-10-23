@@ -7,14 +7,14 @@ The code changes are made to make the analysis more clear and pedagogical.
 
 The following algorithms are implemented in Python:
 - Markov Decission Precoss (MDP) and Reinforcement Learning (RL)
-	- Environment/World is known: (run tests from `known_world` directory)
+	- Environment/World is known: (run tests from `known_world` directory, see the generated `plots` directory)
 		- Basics of MDP (grid world)
 		- Policy Iteration
 		- Value Iteration
 	- Environment/World is unknown: Learning through a model approximation of it (run tests from `unknown_world_model_based` directory)
-		- Model-based Adaptive Dynamic Programming (ADP)
+		- Adaptive Dynamic Programming (ADP)
 	- Environment/World is unknown: Learning through a model free approach (run tests from `unknown_world_model_free` directory)
-		- Model-free Monte Carlo (MC)
+		- Monte Carlo (MC)
 	- Environment/World is unknown: Temporal difference learning (run tests from `unknown_world_tdl` directory)
 		- Q-Learning
 
@@ -51,3 +51,10 @@ Under the class **ValueIteration**, the following functions are provided:
 - *get_policy()*: determine policy based on current utility.
 - *train(tol, plot)*: perform value iteration with a stop criterion of the given tol. If plot is true, the function plots learning curves showing maximum value change in each iteration.
 
+### ADPLearner.py
+Implement a model-based adaptive dynamic programming (ADP) agent to learn a MDP.
+
+Under the class **ADPLearner**, the following functions are provided:
+- *percept(s, a, s', r)*: update the learned reward and transition model after each step moved in MDP from the given (s, a, s', r) associated with that step. 
+- *actuate(s')*: return the next action for the agent based on currently learned policy for state s'.
+- *policy_update*: update the learned policy after each episode (an episode here is defined as a series of steps from a starting state to an ending state).

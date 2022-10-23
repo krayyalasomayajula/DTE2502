@@ -3,9 +3,12 @@ from PolicyIteration import PolicyIteration
 
 
 class ADPLearner:
-    def __init__(self, num_states, num_actions, gamma=0.9, epsilon=0.9, xi=0.99):
-        self.num_states = num_states
-        self.num_actions = num_actions
+    def __init__(self, problem, gamma=0.9, epsilon=0.9, xi=0.99):
+        self.problem = problem
+        num_states = problem.num_states
+        num_actions = problem.num_actions
+        self.num_states = problem.num_states
+        self.num_actions = problem.num_actions
         self.gamma = gamma
         self.epsilon = epsilon
         self.xi = xi
@@ -34,9 +37,9 @@ class ADPLearner:
             return self.cur_policy[s_prime]
 
     def policy_update(self):
-        solver = PolicyIteration(self.r_table, self.p_table, self.gamma,
+        solver = PolicyIteration(self.problem, self.gamma,
                                  init_policy=self.cur_policy, init_value=self.u_table)
-        solver.train(tol=1e-3, plot=False)
+        solver.train(tol=1e-3, save_plots=False)
         self.cur_policy = solver.policy
         self.epsilon *= self.xi
 

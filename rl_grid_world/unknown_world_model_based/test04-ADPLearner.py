@@ -1,3 +1,6 @@
+import sys
+sys.path.append('../MDP')
+
 from GridWorld import GridWorld
 from ADPLearner import ADPLearner
 
@@ -10,7 +13,7 @@ from time import time
 class GridWorldMBSolver:
     def __init__(self, problem, learner_class, gamma=0.9, epsilon=0.9, xi=0.99):
         self.problem = problem
-        self.learner = learner_class(num_states=problem.num_states, num_actions=problem.num_actions,
+        self.learner = learner_class(problem,
                                      gamma=gamma, epsilon=epsilon, xi=xi)
 
     def train_one_epoch(self, start_pos):
@@ -87,28 +90,29 @@ class GridWorldMBSolver:
 
         return total_reward
 
+SELECT_GRID = '3x4'
+if SELECT_GRID == '3x4':
+    problem = GridWorld('../data/world00.csv', reward={0: -0.04, 1: 1.0, 2: -1.0, 3: np.NaN}, random_rate=0.2)
+    n = 1000
+    random_start = np.zeros(n)
+    for i in range(n):
+        print(f'Epoch: {i + 1}')
+        problem_solver = GridWorldMBSolver(problem, ADPLearner, epsilon=1, xi=0.9)
+        random_start[i] = problem_solver.train(100, start_pos=(2, 0), plot=False)
+    print(f'average = {np.mean(random_start)}')
+    print(f'min = {np.min(random_start)}')
+    print(f'max = {np.max(random_start)}')
 
-# problem = GridWorld('data/world00.csv', reward={0: -0.04, 1: 1.0, 2: -1.0, 3: np.NaN}, random_rate=0.2)
-# n = 1000
-# random_start = np.zeros(n)
-# for i in range(n):
-#     print(f'Epoch: {i + 1}')
-#     problem_solver = GridWorldMBSolver(problem, ADPLearner, epsilon=1, xi=0.9)
-#     random_start[i] = problem_solver.train(100, start_pos=(2, 0), plot=False)
-# print(f'average = {np.mean(random_start)}')
-# print(f'min = {np.min(random_start)}')
-# print(f'max = {np.max(random_start)}')
-#
-# bins = 100
-# fig, ax = plt.subplots(1, 1, figsize=(6, 4), dpi=300)
-# ax.set_xlabel('Total rewards in a single game')
-# ax.set_ylabel('Frequency')
-# ax.hist(random_start, bins=bins, color='#1f77b4', edgecolor='black')
-# plt.show()
-
-np.random.seed(42)
-problem = GridWorld('data/world02.csv', reward={0: -0.04, 1: 10.0, 2: -2.5, 3: np.NaN}, random_rate=0.2)
-problem_solver = GridWorldMBSolver(problem, ADPLearner, epsilon=1.0, xi=0.99)
-problem_solver.train(1000, start_pos=(5, 3), plot=True)
+    bins = 100
+    fig, ax = plt.subplots(1, 1, figsize=(6, 4), dpi=300)
+    ax.set_xlabel('Total rewards in a single game')
+    ax.set_ylabel('Frequency')
+    ax.hist(random_start, bins=bins, color='#1f77b4', edgecolor='black')
+    plt.show()
+else:
+    np.random.seed(42)
+    problem = GridWorld('../data/world01.csv', reward={0: -0.04, 1: 10.0, 2: -2.5, 3: np.NaN}, random_rate=0.2)
+    problem_solver = GridWorldMBSolver(problem, ADPLearner, epsilon=1.0, xi=0.99)
+    problem_solver.train(1000, start_pos=(5, 3), plot=True)
 
 
