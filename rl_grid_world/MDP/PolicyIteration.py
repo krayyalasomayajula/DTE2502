@@ -75,22 +75,24 @@ class PolicyIteration:
             epoch += 1
             eval_count = self.run_policy_evaluation(tol)
             policy_change = self.run_policy_improvement()
-            if save_plots and epoch % plot_save_freq == 0:
-                fil_name = path.join(save_dir, f"policy_epoch{str(epoch).zfill(3)}.png")
-                self.problem.plot_policy(self.policy, fig_size=(20, 10),
-                    SAVE_PLOTS=True, fil_name=fil_name)
+            if epoch % plot_save_freq == 0:
                 self.policy_history.append(deepcopy(self.policy))
+                if save_plots:
+                    fil_name = path.join(save_dir, f"policy_epoch{str(epoch).zfill(3)}.png")
+                    self.problem.plot_policy(self.policy, fig_size=(20, 10),
+                        SAVE_PLOTS=True, fil_name=fil_name)
+                
             
             eval_count_history.append(eval_count)
             policy_change_history.append(policy_change)
             if policy_change == 0:
                 break
         
+        if not epoch % plot_save_freq == 0:
+            self.policy_history.append(self.policy)
         if save_plots:
             fil_name = path.join(save_dir, f"policy_epoch_final.png")
             self.problem.plot_policy(self.policy, fig_size=(20, 10), SAVE_PLOTS=True, fil_name=fil_name)
-            if not epoch % plot_save_freq == 0:
-                self.policy_history.append(self.policy)
         
         # print(f'# epoch: {len(policy_change_history)}')
         # print(f'eval count = {eval_count_history}')

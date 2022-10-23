@@ -59,22 +59,24 @@ class ValueIteration:
             epoch += 1
             delta = self.one_iteration()
             delta_history.append(delta)
-            if save_plots and epoch % plot_save_freq == 0:
+            if epoch % plot_save_freq == 0:
                 policy = self.get_policy()
-                fil_name = path.join(save_dir, f"policy_epoch{str(epoch).zfill(3)}.png")
-                self.problem.plot_policy(policy, fig_size=(20, 10),
-                    SAVE_PLOTS=True, fil_name=fil_name)
                 self.policy_history.append(policy)
+
+                if save_plots:
+                    fil_name = path.join(save_dir, f"policy_epoch{str(epoch).zfill(3)}.png")
+                    self.problem.plot_policy(policy, fig_size=(20, 10),
+                        SAVE_PLOTS=True, fil_name=fil_name)
 
             if delta < tol:
                 break
         self.policy = self.get_policy()
 
+        if not epoch % plot_save_freq == 0:
+            self.policy_history.append(self.policy)
         if save_plots:
             fil_name = path.join(save_dir, f"policy_epoch_final.png")
             self.problem.plot_policy(self.policy, fig_size=(20, 10), SAVE_PLOTS=True, fil_name=fil_name)
-            if not epoch % plot_save_freq == 0:
-                self.policy_history.append(self.policy)
         
         # print(f'# iterations of policy improvement: {len(delta_history)}')
         # print(f'delta = {delta_history}')
@@ -90,4 +92,4 @@ class ValueIteration:
             fil_name = path.join(save_dir, f"value_changes.png")
             plt.savefig(fil_name)
             plt.close()
-
+            
