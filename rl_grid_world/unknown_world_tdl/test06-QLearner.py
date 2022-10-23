@@ -1,3 +1,6 @@
+import sys
+sys.path.append('../MDP')
+
 from GridWorld import GridWorld
 from QLearner import QLearner
 
@@ -85,13 +88,15 @@ class GridWorldQSolver:
             plt.show()
 
 
-# problem = GridWorld('data/world00.csv', reward={0: -0.04, 1: 1.0, 2: -1.0, 3: np.NaN}, random_rate=0.2)
-# problem_solver = GridWorldQSolver(problem, QLearner, rar=0.5, radr=0.99)
-# problem_solver.train(200, start_pos=(2, 0))
-
-np.random.seed(42)
-problem = GridWorld('data/world02.csv', reward={0: -0.04, 1: 10.0, 2: -2.5, 3: np.NaN}, random_rate=0.2)
-problem_solver = GridWorldQSolver(problem, QLearner, epsilon=1.0, xi=0.99)
-problem_solver.train(1000, start_pos=(5, 3), plot=True)
+SELECT_GRID = 'big' #'3x4'
+if SELECT_GRID == '3x4':
+    problem = GridWorld('../data/world00.csv', reward={0: -0.04, 1: 1.0, 2: -1.0, 3: np.NaN}, random_rate=0.2)
+    problem_solver = GridWorldQSolver(problem, QLearner, epsilon=0.5, xi=0.99)
+    problem_solver.train(200, start_pos=(2, 0))
+else:
+    np.random.seed(42)
+    problem = GridWorld('../data/world01.csv', reward={0: -0.04, 1: 10.0, 2: -2.5, 3: np.NaN}, random_rate=0.2)
+    problem_solver = GridWorldQSolver(problem, QLearner, epsilon=1.0, xi=0.99)
+    problem_solver.train(1000, start_pos=(5, 3), plot=True)
 
 

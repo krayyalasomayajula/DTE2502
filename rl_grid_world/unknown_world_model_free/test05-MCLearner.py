@@ -102,7 +102,7 @@ class GridWorldMCSolver:
 
         return total_reward
 
-SELECT_GRID = '3x4'
+SELECT_GRID = 'big' #'3x4'
 if SELECT_GRID == '3x4':
     problem = GridWorld('../data/world00.csv', reward={0: -0.04, 1: 1.0, 2: -1.0, 3: np.NaN}, random_rate=0.2)
     n = 10
