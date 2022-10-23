@@ -1,3 +1,6 @@
+import sys
+sys.path.append('../MDP')
+
 from GridWorld import GridWorld
 from MCLearner import MCLearner
 
@@ -12,8 +15,7 @@ from matplotlib.ticker import FormatStrFormatter
 class GridWorldMCSolver:
     def __init__(self, problem, learner_class, epsilon=0.9, xi=0.99, initial_q=0.0):
         self.problem = problem
-        self.learner = learner_class(num_states=problem.num_states, num_actions=problem.num_actions,
-                                     epsilon=epsilon, xi=xi, initial_q=initial_q)
+        self.learner = learner_class(problem, epsilon=epsilon, xi=xi, initial_q=initial_q)
 
     def train_one_epoch(self, start_pos):
         s = self.problem.get_state_from_pos(start_pos)
@@ -100,29 +102,29 @@ class GridWorldMCSolver:
 
         return total_reward
 
-
-# problem = GridWorld('data/world00.csv', reward={0: -0.04, 1: 1.0, 2: -1.0, 3: np.NaN}, random_rate=0.2)
-# n = 10
-# random_start = np.zeros(n)
-# for i in range(n):
-#     print(f'Epoch: {i + 1}')
-#     problem_solver = GridWorldMCSolver(problem, MCLearner, epsilon=1.0, xi=0.9, initial_q=2)
-#     random_start[i] = problem_solver.train(100, start_pos=(2, 0), plot=False)
-# print(f'average = {np.mean(random_start)}')
-# print(f'min = {np.min(random_start)}')
-# print(f'max = {np.max(random_start)}')
-#
-# bins = 100
-# fig, ax = plt.subplots(1, 1, figsize=(6, 4), dpi=300)
-# ax.set_xlabel('Total rewards in a single game')
-# ax.set_ylabel('Frequency')
-# ax.hist(random_start, bins=bins, color='#1f77b4', edgecolor='black')
-# plt.show()
-
-
-np.random.seed(41)
-problem = GridWorld('data/world02.csv', reward={0: -0.04, 1: 10.0, 2: -2.5, 3: np.NaN}, random_rate=0.2)
-problem_solver = GridWorldMCSolver(problem, MCLearner, epsilon=1.0, xi=0.99, initial_q=0.0)
-problem_solver.train(1000, start_pos=(5, 3), plot=True)
+SELECT_GRID = '3x4'
+if SELECT_GRID == '3x4':
+    problem = GridWorld('../data/world00.csv', reward={0: -0.04, 1: 1.0, 2: -1.0, 3: np.NaN}, random_rate=0.2)
+    n = 10
+    random_start = np.zeros(n)
+    for i in range(n):
+        print(f'Epoch: {i + 1}')
+        problem_solver = GridWorldMCSolver(problem, MCLearner, epsilon=1.0, xi=0.9, initial_q=2)
+        random_start[i] = problem_solver.train(100, start_pos=(2, 0), plot=False)
+    print(f'average = {np.mean(random_start)}')
+    print(f'min = {np.min(random_start)}')
+    print(f'max = {np.max(random_start)}')
+    #
+    bins = 100
+    fig, ax = plt.subplots(1, 1, figsize=(6, 4), dpi=300)
+    ax.set_xlabel('Total rewards in a single game')
+    ax.set_ylabel('Frequency')
+    ax.hist(random_start, bins=bins, color='#1f77b4', edgecolor='black')
+    plt.show()
+else:
+    np.random.seed(41)
+    problem = GridWorld('../data/world01.csv', reward={0: -0.04, 1: 10.0, 2: -2.5, 3: np.NaN}, random_rate=0.2)
+    problem_solver = GridWorldMCSolver(problem, MCLearner, epsilon=1.0, xi=0.99, initial_q=0.0)
+    problem_solver.train(1000, start_pos=(5, 3), plot=True)
 
 
