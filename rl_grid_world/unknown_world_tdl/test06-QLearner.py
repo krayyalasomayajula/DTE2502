@@ -14,7 +14,7 @@ from matplotlib.ticker import FormatStrFormatter
 class GridWorldQSolver:
     def __init__(self, problem, learner_class, epsilon=0.9, xi=0.99):
         self.problem = problem
-        self.learner = learner_class(num_states=problem.num_states, num_actions=problem.num_actions, epsilon=epsilon, xi=xi)
+        self.learner = learner_class(problem, epsilon=epsilon, xi=xi)
 
     def train_one_epoch(self, start_pos):
         s = self.problem.get_state_from_pos(start_pos)

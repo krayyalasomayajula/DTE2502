@@ -2,7 +2,12 @@ import numpy as np
 
 
 class QLearner:
-    def __init__(self, num_states, num_actions, alpha=0.2, gamma=0.9, epsilon=0.9, xi=0.99):
+    def __init__(self, problem, alpha=0.2, gamma=0.9, epsilon=0.9, xi=0.99):
+        self.problem = problem
+        num_states = problem.num_states
+        num_actions = problem.num_actions
+        
+        
         self.num_states = num_states
         self.num_actions = num_actions
         self.alpha = alpha
