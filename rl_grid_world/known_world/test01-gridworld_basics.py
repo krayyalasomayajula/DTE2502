@@ -11,7 +11,7 @@ from MDP.GridWorld import GridWorld
 # 2 -> -ve exist state with default reward -1.0
 # 3 -> blocking state which is not accessible by default
 
-SELECT_GRID = '3x4'
+SELECT_GRID = '4x4'
 GRIDWORLD_PLOTS_DIR = 'plots/GridWorld'
 if not os.path.exists(GRIDWORLD_PLOTS_DIR):
     os.makedirs(GRIDWORLD_PLOTS_DIR)
@@ -19,23 +19,25 @@ if not os.path.exists(GRIDWORLD_PLOTS_DIR):
 if SELECT_GRID == '3x4':
     REWARD_VALUES = {0: -0.04, 1: 1.0, 2: -1.0, 3: np.NaN}
     problem = GridWorld('../data/world00.csv', reward=REWARD_VALUES, random_rate=0.2)
-    problem.plot_map(fig_size=(10, 8), 
+    scale = 1.0
+else:
+    REWARD_VALUES = {0: -0.04, 1: 10.0, 2: -10.0, 3: np.NaN}
+    problem = GridWorld('../data/world01.csv', reward=REWARD_VALUES, random_rate=0.2)
+    scale = 2.0
+    
+problem.plot_map(fig_size=(10*scale, 8*scale), 
     SHOW_STATES=True, 
     SHOW_REWARDS=True,
     SAVE_PLOTS=True,
     fil_name=os.path.join(GRIDWORLD_PLOTS_DIR, 'rewards.png'))
-else:
-    REWARD_VALUES = {0: -0.04, 1: 10.0, 2: -10.0, 3: np.NaN}
-    problem = GridWorld('../data/world01.csv', reward=REWARD_VALUES, random_rate=0.2)
-    problem.plot_map(fig_size=(10, 8))
-
-problem.plot_transition_probabilities(fig_size=(20, 10),
+    
+problem.plot_transition_probabilities(fig_size=(20*scale, 10*scale),
                     SAVE_PLOTS=True, fil_name=os.path.join(GRIDWORLD_PLOTS_DIR, 'transition_prob.png'))
 
 init_policy = problem.generate_random_policy()
-problem.plot_policy(init_policy, fig_size=(20, 10),
+problem.plot_policy(init_policy, fig_size=(20*scale, 10*scale),
                     SAVE_PLOTS=True, fil_name=os.path.join(GRIDWORLD_PLOTS_DIR, 'policy.png'))
-problem.plot_values(init_policy, np.zeros(problem.num_states), fig_size=(10, 8),
+problem.plot_values(init_policy, np.zeros(problem.num_states), fig_size=(10*scale, 8*scale),
                                 SAVE_PLOTS=True, fil_name=os.path.join(GRIDWORLD_PLOTS_DIR, 'values.png'))
 
 reward_function = problem.reward_function

@@ -7,7 +7,7 @@ sys.path.append('..')
 from MDP.GridWorld import GridWorld
 from MDP.ValueIteration import ValueIteration
 
-problem = GridWorld('../data/world00.csv', reward={0: -0.04, 1: 1.0, 2: -1.0, 3: np.NaN}, random_rate=0.2)
+problem = GridWorld('../data/world01.csv', reward={0: -0.04, 1: 1.0, 2: -1.0, 3: np.NaN}, random_rate=0.2)
 
 VI_PLOTS_DIR = 'plots/ValueIteration'
 if not os.path.exists(VI_PLOTS_DIR):

@@ -3,13 +3,15 @@ import os
 import itertools
 from copy import deepcopy
 import sys
+import pdb
 sys.path.append('..')
 
 from MDP.GridWorld import GridWorld
 from MDP.PolicyIteration import PolicyIteration
 
-problem = GridWorld('../data/world00.csv', reward={0: -0.04, 1: 1.0, 2: -1.0, 3: np.NaN}, random_rate=0.2)
-policy = [1, 1, 3, 1, 0, 0, 2, 0, 1, 2, 1, 0]
+problem = GridWorld('../data/world01.csv', reward={0: -0.04, 1: 1.0, 2: -1.0, 3: np.NaN}, random_rate=0.2)
+np.random.seed(42)
+policy = list(np.random.randint(0,4, problem.num_rows*problem.num_cols))
 
 PI_PLOTS_DIR = 'plots/PolicyIteration'
 if not os.path.exists(PI_PLOTS_DIR):
