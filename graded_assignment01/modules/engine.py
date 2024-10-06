@@ -78,6 +78,12 @@ def accuracy_test(model, dataloader: Iterable, device: torch.device):
         acc_by_len[len(w)] = 0
         word_count_by_len[len(w)] = 0
 
+    # Changed code start
+    word_map_tensors = {w: torch.tensor(vec).float().to(device) for w, vec in word_map.items()}
+    word_matrix = torch.stack(list(word_map_tensors.values())).float()
+    word_matrix = word_matrix / (word_matrix.norm(p = 2, dim = 1, keepdim = True) + 1e-8)
+    # Changed code end
+
     # Predictions list
     Predictions = []
 
@@ -85,18 +91,18 @@ def accuracy_test(model, dataloader: Iterable, device: torch.device):
         samples = samples.to(device)
 
         vector_dict = model(samples)
-        vectors = torch.cat((vector_dict['phos'], vector_dict['phoc']), dim=1)
+        vectors = torch.cat((vector_dict['phos'], vector_dict['phoc']), dim=1).float()
+
+        vectors = vectors / (vectors.norm(p = 2, dim = 1, keepdim = True) + 1e-8)
+        # Manual calculation of cosine similarities with the normalised word_matrix and vectors.
+        cosine_similarities = vectors @ word_matrix.T
+
+        _, predicted_indices = cosine_similarities.max(dim = 1)
+        predicted_words = [list(word_map.keys())[idx] for idx in predicted_indices.cpu().numpy()]
 
         for i in range(len(words)):
             target_word = words[i]
-            pred_vector = vectors[i].view(-1, 769)
-            mx = -1
-
-            for w in word_map:
-                temp = torch.cosine_similarity(pred_vector, torch.tensor(word_map[w]).to(device))
-                if temp > mx:
-                    mx = temp
-                    pred_word = w
+            pred_word = predicted_words[i]
 
             Predictions.append((samples[i], target_word, pred_word))
 
